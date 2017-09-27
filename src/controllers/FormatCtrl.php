@@ -11,16 +11,28 @@
 class FormatCtrl
 {
 
-    private $formatDB;
-
-    public function __construct()
-    {
-        $this->formatDB = new FormatDB();
-    }
-
     public function showAll($conn)
     {
+        return FormatDB::showAll($conn);
+    }
 
-//        return $this->formatDB->showAll($conn);
+    public function find($conn, $id)
+    {
+        return FormatDB::find($conn, $id);
+    }
+
+    public function create($conn, $param)
+    {
+        return FormatDB::create($conn, $param);
+    }
+
+    public function update($conn, $param, $id)
+    {
+        return FormatDB::update($conn, $param, $id);
+    }
+
+    public function destroy($conn, $id)
+    {
+        return FormatDB::destroy($conn, $id);
     }
 }
