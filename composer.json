@@ -1,14 +1,13 @@
 {
-    "name": "slim/slim-skeleton",
-    "description": "A Slim Framework skeleton application for rapid development",
-    "keywords": ["microframework", "rest", "router", "psr7"],
-    "homepage": "http://github.com/slimphp/Slim-Skeleton",
+    "name": "UnyLeya API",
+    "description": "Uma simples API para o processo seletivo programador pleno da Faculdade UnyLeya",
+    "keywords": ["api", "rest"],
+    "homepage": "https://github.com/AlexAlexandre/unyleyaAPI",
     "license": "MIT",
     "authors": [
         {
-            "name": "Josh Lockhart",
-            "email": "info@joshlockhart.com",
-            "homepage": "http://www.joshlockhart.com/"
+            "name": "Alex Alexandre",
+            "email": "alexalexandrejr@gmail.com"
         }
     ],
     "require": {
@@ -17,13 +16,27 @@
         "slim/php-view": "^2.0",
         "monolog/monolog": "^1.17"
     },
+    "autoload": {
+        "classmap": [
+            "src/controllers",
+            "src/database",
+            "src/models",
+            "src/QueryObject"
+        ]
+    },
     "require-dev": {
         "phpunit/phpunit": ">=4.8 < 6.0"
     },
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/"
-        }
+        },
+        "classmap": [
+            "src/controllers",
+            "src/database",
+            "src/models",
+            "src/QueryObject"
+        ]
     },
     "config": {
         "process-timeout" : 0

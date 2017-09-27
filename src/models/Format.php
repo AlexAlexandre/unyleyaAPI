@@ -14,6 +14,10 @@ class Format
     private $updated_at;
 
 
+    public $table = 'tb_format';
+    public $pk = 'id_format';
+    public $status = 'status_format';
+
     public function __construct($tx_nme_format, $status_format, $created_at = null)
     {
         $this->tx_nme_format = $tx_nme_format;
