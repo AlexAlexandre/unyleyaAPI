@@ -46,7 +46,7 @@ $app->map(['GET', 'POST', 'PUT', 'DELETE'], '/formato[/{id}]', function ($reques
 });
 
 
-$app->map(['GET', 'POST', 'PUT', 'DELETE'], '/color[/{id}]', function ($request, $response, $args) {
+$app->map(['GET', 'POST', 'PUT', 'DELETE'], '/cor[/{id}]', function ($request, $response, $args) {
     $method = $request->getMethod();
 
     switch ($method)
@@ -82,7 +82,7 @@ $app->map(['GET', 'POST', 'PUT', 'DELETE'], '/color[/{id}]', function ($request,
 });
 
 
-$app->map(['GET', 'POST', 'PUT', 'DELETE'], '/tabela[/{id}]', function ($request, $response, $args) {
+$app->map(['GET', 'POST', 'PUT', 'DELETE'], '/mesa[/{id}]', function ($request, $response, $args) {
     $method = $request->getMethod();
 
     switch ($method)
