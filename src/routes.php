@@ -80,3 +80,39 @@ $app->map(['GET', 'POST', 'PUT', 'DELETE'], '/color[/{id}]', function ($request,
     }
 
 });
+
+
+$app->map(['GET', 'POST', 'PUT', 'DELETE'], '/tabela[/{id}]', function ($request, $response, $args) {
+    $method = $request->getMethod();
+
+    switch ($method)
+    {
+        case 'GET':
+            if(empty($args))
+            {
+                $data = TableCtrl::showAll($this->db);
+                return $response->withJson($data);
+            }
+            else
+            {
+                $data = TableCtrl::find($this->db, $args['id']);
+                return $response->withJson($data);
+            }
+            break;
+        case 'POST':
+            $parsedBody = $request->getParsedBody();
+            $data = TableCtrl::create($this->db, $parsedBody);
+            return $response->withJson($data);
+            break;
+        case 'PUT':
+            $parsedBody = $request->getParsedBody();
+            $data = TableCtrl::update($this->db, $parsedBody, $args['id']);
+            return $response->withJson($data);
+            break;
+        case 'DELETE':
+            $data = TableCtrl::destroy($this->db, $args['id']);
+            return $response->withJson($data);
+            break;
+    }
+
+});

@@ -40,6 +40,15 @@ final class SqlSelect extends SqlInstruction
         // adiciona na cláusula FROM o nome da tabela
         $this->sql .= ' FROM ' . $this->entity;
 
+
+        // faz a junção caso existe algum join para o select
+        if($this->join)
+        {
+            $join = $this->join->dump();
+            $this->sql .= $join;
+        }
+
+
         // obtém a cláusula WHERE do objeto criteria.
         if ($this->criteria)
         {

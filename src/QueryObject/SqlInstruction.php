@@ -11,7 +11,7 @@ abstract class SqlInstruction
     protected $sql;		     // armazena a instrução SQL
     protected $criteria;	 // armazena o objeto critério
     protected $entity;
-
+    protected $join;
 
     /**
      * método setEntity()
@@ -41,6 +41,17 @@ abstract class SqlInstruction
     public function setCriteria(Criteria $criteria)
     {
         $this->criteria = $criteria;
+    }
+
+    /**
+     * método setJoin()
+     * Define um join de seleção dos dados através da composição de um objeto
+     * do tipo Join, que oferece uma interface para definição de junções
+     * @param $criteria = objeto do tipo Criteria
+     */
+    public function setJoin(Join $join)
+    {
+        $this->join = $join;
     }
 
     /**
