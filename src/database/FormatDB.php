@@ -6,10 +6,23 @@
  * Time: 18:45
  */
 
-
+/**
+ * Class FormatDB
+ *
+ * Classe responsável por fazer o tratamento de instruções do banco de dados
+ * Executa um CRUD compelto da entidade Formato
+ *
+ */
 class FormatDB
 {
 
+    /**
+     * Classe responsável por retornar um array com todos os formatos
+     * cadastrados na base de dados
+     *
+     * @param $conn ( Conexão com o banco de dados)
+     * @return array|string
+     */
     public function showAll($conn)
     {
 
@@ -34,7 +47,7 @@ class FormatDB
             }
             else
             {
-                return $msg = array('code' => 204, 'message' => 'Resultado não encontrado');
+                return $msg = array('code' => 204, 'message' => MessageException::msgNotFound());
             }
 
             $conn = null;
@@ -47,6 +60,14 @@ class FormatDB
         return $result;
     }
 
+    /**
+     * Classe responsável por retornar um array com todos os detalhes da forma
+     * especificado via ID
+     *
+     * @param $conn ( Conexão com o banco de dados)
+     * @param $id (id_format)
+     * @return array|string
+     */
     public function find($conn, $id)
     {
         $criteria = new Criteria();
@@ -64,7 +85,7 @@ class FormatDB
             if($select->rowcount() > 0)
                 $result = $select->fetch();
             else
-                return $msg = array('code' => 204, 'message' => 'Resultado não encontrado');
+                return $msg = array('code' => 204, 'message' => MessageException::msgNotFound());
 
             $conn = null;
 
@@ -77,6 +98,13 @@ class FormatDB
 
     }
 
+    /**
+     * Classe responsável por criar um novo formato na base de dados
+     *
+     * @param $conn  ( Conexão com o banco de dados)
+     * @param $param (tx_nme_format)
+     * @return array|string
+     */
     public function create($conn, $param)
     {
         $sql = new SqlInsert();
@@ -96,9 +124,17 @@ class FormatDB
             return $exception->getMessage();
         }
 
-        return $msg = array('code' => 200, 'message' => 'Objeto inserido com sucesso');
+        return $msg = array('code' => 200, 'message' => MessageException::msgCreatedSuccessful());
     }
 
+    /**
+     * Classe responsável por alterar um formato na base de dados
+     *
+     * @param $conn  ( Conexão com o banco de dados)
+     * @param $param (tx_nme_format)
+     * @param $id (id_format)
+     * @return array|string
+     */
     public function update($conn, $param, $id)
     {
         $criteria = new Criteria();
@@ -119,10 +155,17 @@ class FormatDB
             return $exception->getMessage();
         }
 
-        return $msg = array('code' => 200, 'message' => 'Objeto alterado com sucesso');
+        return $msg = array('code' => 200, 'message' => MessageException::msgUpdatedSuccessful());
     }
 
 
+    /**
+     * Classe responsável por alterar o estado do formato para D = deletado
+     *
+     * @param $conn  ( Conexão com o banco de dados)
+     * @param id (id_format)
+     * @return array|string
+     */
     public function destroy($conn, $id)
     {
         $criteria = new Criteria();
@@ -143,6 +186,6 @@ class FormatDB
             return $exception->getMessage();
         }
 
-        return $msg = array('code' => 200, 'message' => 'Objeto Apagado com sucesso');
+        return $msg = array('code' => 200, 'message' => MessageException::msgDeletedSuccessful());
     }
 }

@@ -6,10 +6,22 @@
  * Time: 22:55
  */
 
-
+/**
+ * Class TableDB
+ *
+ * Classe responsável por fazer o tratamento de instruções do banco de dados
+ * Executa um CRUD compelto da entidade Mesa
+ */
 class TableDB
 {
 
+    /**
+     * Classe responsável por retornar um array com todos as mesas
+     * cadastrados na base de dados
+     *
+     * @param $conn ( Conexão com o banco de dados)
+     * @return array|string
+     */
     public function showAll($conn)
     {
         $join   = new Join();
@@ -42,7 +54,7 @@ class TableDB
             }
             else
             {
-                return $msg = array('code' => 204, 'message' => 'Resultado não encontrado');
+                return $msg = array('code' => 204, 'message' => MessageException::msgNotFound());
             }
 
             $conn = null;
@@ -55,6 +67,14 @@ class TableDB
         return $result;
     }
 
+    /**
+     * Classe responsável por listar todos os detalhes da mesa
+     * especificado via ID
+     *
+     * @param $conn ( Conexão com o banco de dados)
+     * @param $id (id_table)
+     * @return array|string
+     */
     public function find($conn, $id)
     {
         $join   = new Join();
@@ -81,7 +101,7 @@ class TableDB
             if($select->rowcount() > 0)
                 $result = $select->fetch();
             else
-                return $msg = array('code' => 204, 'message' => 'Not found');
+                return $msg = array('code' => 204, 'message' => MessageException::msgNotFound());
 
             $conn = null;
 
@@ -94,6 +114,13 @@ class TableDB
 
     }
 
+    /**
+     * Classe responsável por criar uma nova mesa na base de dados
+     *
+     * @param $conn  ( Conexão com o banco de dados)
+     * @param $param (cod_format, cod_color_list, tx_nme_model e tx_measures)
+     * @return array|string
+     */
     public function create($conn, $param)
     {
         $sql = new SqlInsert();
@@ -116,9 +143,17 @@ class TableDB
             return $exception->getMessage();
         }
 
-        return $msg = array('code' => 200, 'message' => 'Objeto inserido com sucesso');
+        return $msg = array('code' => 200, 'message' => MessageException::msgCreatedSuccessful());
     }
 
+    /**
+     * Classe responsável por alterar uma mesa na base de dados
+     *
+     * @param $conn  ( Conexão com o banco de dados)
+     * @param $param (cod_format, cod_color_list, tx_nme_model e tx_measures)
+     * @param $id (id_table)
+     * @return array|string
+     */
     public function update($conn, $param, $id)
     {
         $criteria = new Criteria();
@@ -142,10 +177,17 @@ class TableDB
             return $exception->getMessage();
         }
 
-        return $msg = array('code' => 200, 'message' => 'Objeto alterado com sucesso');
+        return $msg = array('code' => 200, 'message' => MessageException::msgUpdatedSuccessful());
     }
 
 
+    /**
+     * Classe responsável por alterar o estado da mesa para D = deletado
+     *
+     * @param $conn  ( Conexão com o banco de dados)
+     * @param id (id_table)
+     * @return array|string
+     */
     public function destroy($conn, $id)
     {
         $criteria = new Criteria();
@@ -166,6 +208,6 @@ class TableDB
             return $exception->getMessage();
         }
 
-        return $msg = array('code' => 200, 'message' => 'Objeto Apagado com sucesso');
+        return $msg = array('code' => 200, 'message' => MessageException::msgDeletedSuccessful());
     }
 }

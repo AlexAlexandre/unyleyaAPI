@@ -36,6 +36,56 @@ $app->post('/auth', function (Request $request, Response $response) use ($app){
 
 });
 
+/***********************************************
+ *                                              *
+ * ROTAS DE ACESSO PARA A ENTIDADE USUARIO      *
+ *                                              *
+ ***********************************************/
+
+
+$app->map(['GET', 'POST', 'PUT', 'DELETE'], '/usuario[/{id}]', function ($request, $response, $args) {
+    $method = $request->getMethod();
+
+    switch ($method)
+    {
+        case 'GET':
+            if(empty($args))
+            {
+                $data = UserCtrl::showAll($this->db);
+                return $response->withJson($data);
+            }
+            else
+            {
+                $data = UserCtrl::find($this->db, $args['id']);
+                return $response->withJson($data);
+            }
+            break;
+        case 'POST':
+            $parsedBody = $request->getParsedBody();
+            $data = UserCtrl::create($this->db, $parsedBody);
+            return $response->withJson($data);
+            break;
+        case 'PUT':
+            $parsedBody = $request->getParsedBody();
+            $data = UserCtrl::update($this->db, $parsedBody, $args['id']);
+            return $response->withJson($data);
+            break;
+        case 'DELETE':
+            $data = UserCtrl::destroy($this->db, $args['id']);
+            return $response->withJson($data);
+            break;
+    }
+
+});
+
+
+/***********************************************
+*                                              *
+* ROTAS DE ACESSO PARA A ENTIDADE FORMATO      *
+*                                              *
+***********************************************/
+
+
 $app->map(['GET', 'POST', 'PUT', 'DELETE'], '/formato[/{id}]', function ($request, $response, $args) {
     $method = $request->getMethod();
 
@@ -70,6 +120,13 @@ $app->map(['GET', 'POST', 'PUT', 'DELETE'], '/formato[/{id}]', function ($reques
     }
 
 });
+
+
+/***********************************************
+*                                              *
+* ROTAS DE ACESSO PARA A ENTIDADE COR          *
+*                                              *
+ ***********************************************/
 
 
 $app->map(['GET', 'POST', 'PUT', 'DELETE'], '/cor[/{id}]', function ($request, $response, $args) {
@@ -108,6 +165,13 @@ $app->map(['GET', 'POST', 'PUT', 'DELETE'], '/cor[/{id}]', function ($request, $
 });
 
 
+/***********************************************
+*                                              *
+* ROTAS DE ACESSO PARA A ENTIDADE MESA         *
+*                                              *
+ ***********************************************/
+
+
 $app->map(['GET', 'POST', 'PUT', 'DELETE'], '/mesa[/{id}]', function ($request, $response, $args) {
     $method = $request->getMethod();
 
@@ -142,4 +206,3 @@ $app->map(['GET', 'POST', 'PUT', 'DELETE'], '/mesa[/{id}]', function ($request, 
     }
 
 });
-//eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiYWxleC5hbGV4YW5kcmUiLCJwc3ciOiIxMjMxMjMifQ.8WFqOqpoVepP9rJb0LJJUEWMeVaVLFE31rqnHbvSZBc
