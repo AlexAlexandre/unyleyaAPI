@@ -2,21 +2,59 @@
 /**
  * User: Alex Alexandre
  * E-mail: alexalexandrejr@gmail.com
- * Date: 27/09/17
- * Time: 20:40
+ * Date: 28/09/17
+ * Time: 20:45
  */
 
 /**
- * Class ColorListDB
+ * Class UserDB
  *
  * Classe responsável por fazer o tratamento de instruções do banco de dados
- * Executa um CRUD compelto da entidade Cor
+ * Executa um CRUD compelto da entidade USER
  */
-class ColorListDB
+class UserDB
 {
 
     /**
-     * Classe responsável por retornar um array com todos as cores
+     * Classe responsável por verificar as credenciais do usuário,
+     * Caso ele exista no banco de dados retorna true, para assim gerar um token
+     *
+     * @param $conn  ( Conexão com o banco de dados)
+     * @param $param (tx_nme_user e tx_psw_user)
+     * @return array|bool
+     */
+    public function signIn($conn, $param)
+    {
+        $criteria = new Criteria();
+        $criteria->add(new Filter('tx_nme_user', '=', $param['tx_nme_user']));
+        $criteria->add(new Filter('tx_psw_user', '=', $param['tx_psw_user']));
+
+        $sql = new SqlSelect();
+        $sql->setEntity('tb_user');
+        $sql->addColumn('*');
+        $sql->setCriteria($criteria);
+
+        try{
+
+            $select = $conn->query($sql->getInstruction());
+
+            if($select->rowcount() > 0)
+                $result = $select->fetch();
+            else
+                return $msg = array('code' => 204, 'message' => MessageException::msgNotFound());
+
+            $conn = null;
+
+        }catch (PDOException $exception){
+            //TODO: Implementar LOGS
+            return $exception->getMessage();
+        }
+
+        return true;
+    }
+
+    /**
+     * Classe responsável por retornar um array com todos os usuários
      * cadastrados na base de dados
      *
      * @param $conn ( Conexão com o banco de dados)
@@ -26,10 +64,10 @@ class ColorListDB
     {
 
         $criteria = new Criteria();
-        $criteria->add(new Filter('status_color_list', '=', 'A'));
+        $criteria->add(new Filter('status_user', '=', 'A'));
 
         $sql = new SqlSelect();
-        $sql->setEntity('tb_color_list');
+        $sql->setEntity('tb_user');
         $sql->addColumn('*');
         $sql->setCriteria($criteria);
 
@@ -46,7 +84,7 @@ class ColorListDB
             }
             else
             {
-                return $msg = array('code' => 204, 'message' =>  MessageException::msgNotFound());
+                return $msg = array('code' => 204, 'message' => MessageException::msgNotFound());
             }
 
             $conn = null;
@@ -60,20 +98,20 @@ class ColorListDB
     }
 
     /**
-     * Classe responsável por retornar um array com todos os detalhes da cor
+     * Classe responsável por listar todos os detalhes do usuário
      * especificado via ID
      *
      * @param $conn ( Conexão com o banco de dados)
-     * @param $id (id_color_list)
+     * @param $id (id_user)
      * @return array|string
      */
     public function find($conn, $id)
     {
         $criteria = new Criteria();
-        $criteria->add(new Filter('id_color_list', '=', (int)$id));
+        $criteria->add(new Filter('id_user', '=', (int)$id));
 
         $sql = new SqlSelect();
-        $sql->setEntity('tb_color_list');
+        $sql->setEntity('tb_user');
         $sql->addColumn('*');
         $sql->setCriteria($criteria);
 
@@ -84,7 +122,7 @@ class ColorListDB
             if($select->rowcount() > 0)
                 $result = $select->fetch();
             else
-                return $msg = array('code' => 204, 'message' =>  MessageException::msgNotFound());
+                return $msg = array('code' => 204, 'message' => MessageException::msgNotFound());
 
             $conn = null;
 
@@ -97,21 +135,21 @@ class ColorListDB
 
     }
 
+
     /**
-     * Classe responsável por criar ua cor na base de dados
+     * Classe responsável por criar um novo usuário na base de dados
      *
      * @param $conn  ( Conexão com o banco de dados)
-     * @param $param (tx_nme_color tx_hex_color)
-     * @param $id (id_color_list)
+     * @param $param (tx_nme_user e tx_psw_user)
      * @return array|string
      */
     public function create($conn, $param)
     {
         $sql = new SqlInsert();
-        $sql->setEntity('tb_color_list');
-        $sql->setRowData('tx_nme_color', $param['tx_nme_color']);
-        $sql->setRowData('tx_hex_color', $param['tx_hex_color']);
-        $sql->setRowData('status_color_list', 'A');
+        $sql->setEntity('tb_user');
+        $sql->setRowData('tx_nme_user', $param['tx_nme_user']);
+        $sql->setRowData('tx_psw_user', $param['tx_psw_user']);
+        $sql->setRowData('status_user', 'A');
         $sql->setRowData('created_at', date('Y-m-d H:m:s'));
 
         try{
@@ -125,26 +163,26 @@ class ColorListDB
             return $exception->getMessage();
         }
 
-        return $msg = array('code' => 200, MessageException::msgCreatedSuccessful());
+        return $msg = array('code' => 200, 'message' => MessageException::msgCreatedSuccessful());
     }
 
     /**
-     * Classe responsável por alterar ua cor na base de dados
+     * Classe responsável por alterar um usuário na base de dados
      *
      * @param $conn  ( Conexão com o banco de dados)
-     * @param $param (tx_nme_color tx_hex_color)
-     * @param $id (id_color_list)
+     * @param $param (tx_nme_user e tx_psw_user)
+     * @param $id (id_user)
      * @return array|string
      */
     public function update($conn, $param, $id)
     {
         $criteria = new Criteria();
-        $criteria->add(new Filter('id_color_list', '=', (int)$id));
+        $criteria->add(new Filter('id_user', '=', (int)$id));
 
         $sql = new SqlUpdate();
-        $sql->setEntity('tb_color_list');
-        $sql->setRowData('tx_nme_color', $param['tx_nme_color']);
-        $sql->setRowData('', $param['tx_hex_color']);
+        $sql->setEntity('tb_user');
+        $sql->setRowData('tx_nme_user', $param['tx_nme_user']);
+        $sql->setRowData('tx_psw_user', $param['tx_psw_user']);
         $sql->setRowData('updated_at', date('Y-m-d H:m:s'));
         $sql->setCriteria($criteria);
 
@@ -161,20 +199,20 @@ class ColorListDB
     }
 
     /**
-     * Classe responsável por alterar o estado da cor para D = deletado
+     * Classe responsável por alterar o estado do usuário para D = deletado
      *
      * @param $conn  ( Conexão com o banco de dados)
-     * @param id (id_color)
+     * @param id (id_user)
      * @return array|string
      */
     public function destroy($conn, $id)
     {
         $criteria = new Criteria();
-        $criteria->add(new Filter('id_color_list', '=', (int)$id));
+        $criteria->add(new Filter('id_user', '=', (int)$id));
 
         $sql = new SqlUpdate();
-        $sql->setEntity('tb_color_list');
-        $sql->setRowData('status_color_list', 'D');
+        $sql->setEntity('tb_user');
+        $sql->setRowData('status_user', 'D');
         $sql->setRowData('updated_at', date('Y-m-d H:m:s'));
         $sql->setCriteria($criteria);
 
