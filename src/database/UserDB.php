@@ -71,30 +71,9 @@ class UserDB
         $sql->addColumn('*');
         $sql->setCriteria($criteria);
 
-        try{
+        $executeSql = Crud::showAll($conn, $sql->getInstruction());
 
-            $select = $conn->query($sql->getInstruction());
-
-            if($select->rowCount() > 0)
-            {
-                while ($row =$row = $select->fetch(PDO::FETCH_ASSOC))
-                {
-                    $result[] = $row;
-                }
-            }
-            else
-            {
-                return $msg = array('code' => 204, 'message' => MessageException::msgNotFound());
-            }
-
-            $conn = null;
-
-        }catch (PDOException $exception){
-            //TODO: Implementar LOGS
-            return $exception->getMessage();
-        }
-
-        return $result;
+        return $executeSql;
     }
 
     /**
@@ -115,23 +94,9 @@ class UserDB
         $sql->addColumn('*');
         $sql->setCriteria($criteria);
 
-        try{
+        $executeSql = Crud::find($conn, $sql->getInstruction());
 
-            $select = $conn->query($sql->getInstruction());
-
-            if($select->rowcount() > 0)
-                $result = $select->fetch();
-            else
-                return $msg = array('code' => 204, 'message' => MessageException::msgNotFound());
-
-            $conn = null;
-
-        }catch (PDOException $exception){
-            //TODO: Implementar LOGS
-            return $exception->getMessage();
-        }
-
-        return $result;
+        return $executeSql;
 
     }
 
@@ -152,18 +117,9 @@ class UserDB
         $sql->setRowData('status_user', 'A');
         $sql->setRowData('created_at', date('Y-m-d H:m:s'));
 
-        try{
+        $executeSql = Crud::create($conn, $sql->getInstruction());
 
-            $stmt = $conn->prepare($sql->getInstruction());
-            $stmt->execute();
-
-
-        }catch (PDOException $exception){
-            //TODO: Implementar LOGS
-            return $exception->getMessage();
-        }
-
-        return $msg = array('code' => 200, 'message' => MessageException::msgCreatedSuccessful());
+        return $executeSql;
     }
 
     /**
@@ -186,16 +142,9 @@ class UserDB
         $sql->setRowData('updated_at', date('Y-m-d H:m:s'));
         $sql->setCriteria($criteria);
 
-        try{
-            $stmt = $conn->prepare($sql->getInstruction());
-            $stmt->execute();
+        $executeSql = Crud::update($conn, $sql->getInstruction());
 
-        }catch (PDOException $exception){
-            //TODO: Implementar LOGS
-            return $exception->getMessage();
-        }
-
-        return $msg = array('code' => 200, 'message' => MessageException::msgUpdatedSuccessful());
+        return $executeSql;
     }
 
     /**
@@ -216,15 +165,8 @@ class UserDB
         $sql->setRowData('updated_at', date('Y-m-d H:m:s'));
         $sql->setCriteria($criteria);
 
-        try{
-            $stmt = $conn->prepare($sql->getInstruction());
-            $stmt->execute();
+        $executeSql = Crud::destroy($conn, $sql->getInstruction());
 
-        }catch (PDOException $exception){
-            //TODO: Implementar LOGS
-            return $exception->getMessage();
-        }
-
-        return $msg = array('code' => 200, 'message' => MessageException::msgDeletedSuccessful());
+        return $executeSql;
     }
 }
