@@ -1,26 +1,31 @@
-# Slim Framework 3 Skeleton Application
+# API PROCESSO SELETIVO UNYLEYA
 
-Use this skeleton application to quickly setup and start working on a new Slim Framework 3 application. This application uses the latest Slim 3 with the PHP-View template renderer. It also uses the Monolog logger.
+Olá, sejam bem-vindos. Aqui se encontra uma API, do o processo seletivo para a vaga de desenvolvedor pleno, para a faculdade unyleya.
+Abaixo, segue todas as instruções para executar o webservice.
+ 
 
-This skeleton application was built for Composer. This makes setting up a new Slim Framework application quick and easy.
+## Banco de dados 
+
+O Banco de dados foi desenvolvido com a tecnologia MySQL. Dentro da basta databaseModel, se encontra o script
+necessário para criar as tabelas e fazer os primeiros inserts para teste. Além de também um PDF e um PNG com o
+modelo de dados.
+
+Instalação:
+
+No terminal, entre como root e digite os comandos:
+
+1 - mysql
+
+2 - CREATE DATABASE db_unyleya;
+
+3 - GRANT ALL PRIVILEGES ON db_unyleya.* to <nome_do_usuario>
+
+4 - USE db_unyleya
+
+5 - SOURCE db_unyleya_script_V2.sql
+
+
+Pronto. Nosso banco de dados já está funcionando.
 
 ## Install the Application
 
-Run this command from the directory in which you want to install your new Slim Framework application.
-
-    php composer.phar create-project slim/slim-skeleton [my-app-name]
-
-Replace `[my-app-name]` with the desired directory name for your new application. You'll want to:
-
-* Point your virtual host document root to your new application's `public/` directory.
-* Ensure `logs/` is web writeable.
-
-To run the application in development, you can also run this command. 
-
-	php composer.phar start
-
-Run this command to run the test suite
-
-	php composer.phar test
-
-That's it! Now go build something cool.
