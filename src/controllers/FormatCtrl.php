@@ -6,8 +6,6 @@
  * Time: 18:41
  */
 
-//require_once ("../database/FormatDB.php");
-
 class FormatCtrl
 {
 
