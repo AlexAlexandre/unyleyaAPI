@@ -32,6 +32,8 @@ Inicia-se baixando o .zip disponível no github. Após isso,basta extrair para a
 
  php -S localhost:8080 -t public public/index.php
  
+ 
+ 
  Lembre-se,para rodar o comando é necessário estar na pasta raiz do projeto.
  
  
