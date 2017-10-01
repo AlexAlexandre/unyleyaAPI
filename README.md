@@ -1,13 +1,12 @@
 # API PROCESSO SELETIVO UNYLEYA
 
-Olá, sejam bem-vindos. Aqui se encontra uma API, do o processo seletivo para a vaga de desenvolvedor pleno, para a faculdade unyleya.
-Abaixo, segue todas as instruções para executar o webservice.
+Olá, Olá,Sejam bem-vindos. Aqui se encontram as instruções da API do processo seletivo para a vaga de desenvolvedor pleno da Faculdade Unyleya. 
  
 
 ## Banco de dados 
 
-O Banco de dados foi desenvolvido com a tecnologia MySQL. Dentro da basta databaseModel, se encontra o script
-necessário para criar as tabelas e fazer os primeiros inserts para teste. Além de também um PDF e um PNG com o
+O Banco de dados foi desenvolvido com a tecnologia MySQL. Dentro da basta databaseModel,encontra-se o script
+necessário para criar as tabelas e realizar os primeiros inserts para teste, e também um PDF e um PNG com o
 modelo de dados.
 
 Instalação:
@@ -27,5 +26,16 @@ No terminal, entre como root e digite os comandos:
 
 Pronto. Nosso banco de dados já está funcionando.
 
-## Install the Application
+## Instalando a aplicação 
+
+Inicia-se baixando o .zip disponível no github. Após isso,basta extrair para a pasta de preferência e rodar o comando
+
+ php -S localhost:8080 -t public public/index.php
+ 
+ Lembre-se,para rodar o comando é necessário estar na pasta raiz do projeto.
+ 
+ 
+ 
+Para testar as rotas e apis,foi criado um documento no swagger que auxiliará todo o processo.
+ 
 
