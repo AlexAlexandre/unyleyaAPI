@@ -9,6 +9,16 @@
  * Whitelist - Bloqueia tudo, e só libera os
  * itens dentro do "passthrough"
  */
+
+$app->add(function ($req, $res, $next) {
+    $response = $next($req, $res);
+    return $response
+        ->withHeader('Access-Control-Allow-Origin', '*')
+        ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
+        ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+});
+
+
 $app->add(new \Slim\Middleware\JwtAuthentication([
     "regexp" => "/(.*)/", //Regex para encontrar o Token nos Headers - Livre
     "header" => "X-Token", //O Header que vai conter o token
