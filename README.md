@@ -44,3 +44,6 @@ Inicia-se baixando o .zip disponível no github. Após isso,basta extrair para a
 Para testar as rotas e apis,foi criado um documento no swagger que auxiliará todo o processo.
  
 Dentro da pasta "documentation", há um arquivo HTML produzido com o swagger, onde todas as rotas estão disponíveis para consultas. 
+
+
+OBS: todas as rotas, com exceção das ["/auth", "/usuario"] devem conter no headers a váriavel X-Token, com o token gerado pela aplicação.
