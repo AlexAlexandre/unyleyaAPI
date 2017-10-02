@@ -26,7 +26,7 @@ $app->post('/auth', function (Request $request, Response $response) use ($app){
 
         $jwt = JWT::encode($token, $key);
 
-        return $response->withJson(["auth-jwt" => $jwt], 200)
+        return $response->withJson(["auth_jwt" => $jwt], 200)
             ->withHeader('Content-type', 'application/json');
     }
     else

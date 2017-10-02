@@ -30,6 +30,9 @@ Pronto. Nosso banco de dados já está funcionando.
 
 Inicia-se baixando o .zip disponível no github. Após isso,basta extrair para a pasta de preferência e rodar o comando
 
+ composer install
+
+
  php -S localhost:8080 -t public public/index.php
  
  
@@ -40,4 +43,4 @@ Inicia-se baixando o .zip disponível no github. Após isso,basta extrair para a
  
 Para testar as rotas e apis,foi criado um documento no swagger que auxiliará todo o processo.
  
-
+Dentro da pasta "documentation", há um arquivo HTML produzido com o swagger, onde todas as rotas estão disponíveis para consultas. 

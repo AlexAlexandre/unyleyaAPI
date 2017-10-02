@@ -33,6 +33,9 @@ class TableDB
 
         $sql = new SqlSelect();
         $sql->setEntity('tb_table');
+        $sql->addColumn('id_table');
+        $sql->addColumn('cod_format');
+        $sql->addColumn('cod_color_list');
         $sql->addColumn('tx_nme_model');
         $sql->addColumn('tx_measures');
         $sql->addColumn('tx_nme_format');
